@@ -1,13 +1,14 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Frame extends JFrame {
-    private static final int WIDTH = 1000;
+    private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
 
     private paintPanel paintPanel;
     private JPanel toolPane;
-
 
     public Frame() throws HeadlessException {
         this.setTitle("Xex");
@@ -21,23 +22,33 @@ public class Frame extends JFrame {
 
         JPanel mainPane = new JPanel(new BorderLayout());
         paintPanel = new paintPanel();
-        toolPane = new JPanel(new FlowLayout());
+        toolPane = new JPanel(new FlowLayout(3));
 
+        JButton approximate = new JButton("Approximate");
+        approximate.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                paintPanel.printFunction(Points.lSM());
+            }
+        });
+        JButton cleanBtn = new JButton("Clean");
+        cleanBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Points.clean();
+                mainPane.remove(paintPanel);
+                paintPanel = new paintPanel();
+                mainPane.add(paintPanel, BorderLayout.CENTER);
+                mainPane.updateUI();
+            }
+        });
+        toolPane.add(approximate);
+        toolPane.add(cleanBtn);
 
-        JButton p = new JButton("sss");
-        toolPane.add(p);
-
-
-
-
-
-
-        mainPane.add(toolPane,BorderLayout.SOUTH);
+        mainPane.add(toolPane, BorderLayout.SOUTH);
         mainPane.add(paintPanel, BorderLayout.CENTER);
 
         this.add(mainPane);
         this.setVisible(true);
-
-
     }
 }
