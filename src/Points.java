@@ -59,6 +59,8 @@ public class Points {
         res[0] = a;
         res[1] = b;
 
+
+
         System.out.println("y = " + String.format("%.2f", res[0]) + ((b > 0) ? ("x + " + String.format("%.2f", res[1])) : ("x - " + String.format("%.2f", -res[1]))));
 
         return res;

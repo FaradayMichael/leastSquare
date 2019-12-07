@@ -2,18 +2,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 public class paintPanel extends JPanel {
 
     private int s = 0;
 
     private final int bound = 10;
-    private int step;
+    private  int step;
 
-    private int w;
-    private int h;
+    private  int w;
+    private  int h;
 
-    private Graphics2D g;
+    private  Graphics2D g;
 
     public paintPanel() {
         g = (Graphics2D) super.getGraphics();
@@ -50,6 +51,20 @@ public class paintPanel extends JPanel {
             }
         });
     }
+
+    public void paintInputPoints(ArrayList<Double> xList, ArrayList<Double> yList) {
+        if (g == null) {
+            g = (Graphics2D) super.getGraphics();
+        }
+        g.setColor(new Color(240,80,0));
+        for (int i = 0; i < xList.size(); i++) {
+            Double xp = xList.get(i);
+            Double yp = yList.get(i);
+            g.fillOval((int) ((xp >= 0) ? (w / 2 + xp * step - 4) : (w / 2 - xp * step - 4)), (int) ((yp >= 0) ? (h / 2 - yp * step - 4) : (h / 2 + yp * step - 4)), 8, 8);
+        }
+        g.setColor(Color.BLACK);
+    }
+
 
     public void paintPoint(MouseEvent e) {
         if (g == null) {
@@ -131,9 +146,11 @@ public class paintPanel extends JPanel {
         g.setColor(Color.BLACK);
     }
 
-    public void printFunction(Double[] r) {
+    public String printFunction(Double[] r) {
         Double a = r[0];
         Double b = r[1];
+
+        String res = "y = " + String.format("%.2f", r[0]) + ((b > 0) ? ("x + " + String.format("%.2f", r[1])) : ("x - " + String.format("%.2f", -r[1])));
 
         if (g == null) {
             g = (Graphics2D) super.getGraphics();
@@ -143,5 +160,7 @@ public class paintPanel extends JPanel {
         g.setStroke(new BasicStroke(2.0f));
 
         g.drawLine(0, (int) (h / 2 + a * step * bound - b * step), w, (int) (h / 2 - a * step * bound - b * step));
+
+        return res;
     }
 }

@@ -20,6 +20,8 @@ public class Frame extends JFrame {
         int y = screenSize.height / 2 - HEIGHT / 2;
         this.setBounds(x, y, WIDTH, HEIGHT);
 
+        JLabel resLabel = new JLabel();
+
         JPanel mainPane = new JPanel(new BorderLayout());
         paintPanel = new paintPanel();
         toolPane = new JPanel(new FlowLayout(3));
@@ -28,7 +30,9 @@ public class Frame extends JFrame {
         approximate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                paintPanel.printFunction(Points.lSM());
+                if (Points.size>2) {
+                    resLabel.setText(paintPanel.printFunction(Points.lSM()));
+                }
             }
         });
         JButton cleanBtn = new JButton("Clean");
@@ -39,11 +43,22 @@ public class Frame extends JFrame {
                 mainPane.remove(paintPanel);
                 paintPanel = new paintPanel();
                 mainPane.add(paintPanel, BorderLayout.CENTER);
+                resLabel.setText("");
                 mainPane.updateUI();
             }
         });
+        JButton addPointsBtn = new JButton("Add points");
+        addPointsBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new AddFrame(paintPanel);
+            }
+        });
+
         toolPane.add(approximate);
         toolPane.add(cleanBtn);
+        toolPane.add(addPointsBtn);
+        toolPane.add(resLabel);
 
         mainPane.add(toolPane, BorderLayout.SOUTH);
         mainPane.add(paintPanel, BorderLayout.CENTER);
