@@ -23,14 +23,22 @@ public class Frame extends JFrame {
         JLabel resLabel = new JLabel();
 
         JPanel mainPane = new JPanel(new BorderLayout());
-        paintPanel = new paintPanel();
+        paintPanel = new paintPanel(10);
         toolPane = new JPanel(new FlowLayout(3));
+
+        JComboBox cb = new JComboBox<Integer>();
+        cb.addItem(10);
+        cb.addItem(15);
+        cb.addItem(20);
+        cb.addItem(30);
+        cb.addItem(50);
+        cb.addItem(100);
 
         JButton approximate = new JButton("Approximate");
         approximate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (Points.size>2) {
+                if (Points.size > 2) {
                     resLabel.setText(paintPanel.printFunction(Points.lSM()));
                 }
             }
@@ -41,7 +49,7 @@ public class Frame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Points.clean();
                 mainPane.remove(paintPanel);
-                paintPanel = new paintPanel();
+                paintPanel = new paintPanel((Integer) cb.getSelectedItem());
                 mainPane.add(paintPanel, BorderLayout.CENTER);
                 resLabel.setText("");
                 mainPane.updateUI();
@@ -55,10 +63,15 @@ public class Frame extends JFrame {
             }
         });
 
+
         toolPane.add(approximate);
         toolPane.add(cleanBtn);
         toolPane.add(addPointsBtn);
+        toolPane.add(new JLabel("Bounds:"));
+        toolPane.add(cb);
+        toolPane.add(new JLabel("Result:"));
         toolPane.add(resLabel);
+
 
         mainPane.add(toolPane, BorderLayout.SOUTH);
         mainPane.add(paintPanel, BorderLayout.CENTER);

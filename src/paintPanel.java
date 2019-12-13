@@ -8,15 +8,17 @@ public class paintPanel extends JPanel {
 
     private int s = 0;
 
-    private final int bound = 10;
-    private  int step;
+    private int bound;
+    private int step;
 
-    private  int w;
-    private  int h;
+    private int w;
+    private int h;
 
-    private  Graphics2D g;
+    private Graphics2D g;
 
-    public paintPanel() {
+    public paintPanel(int bound) {
+        this.bound = bound;
+
         g = (Graphics2D) super.getGraphics();
 
         new Thread(() -> {
@@ -31,11 +33,12 @@ public class paintPanel extends JPanel {
         this.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                paintPoint(e);
+
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
+                paintPoint(e);
             }
 
             @Override
@@ -56,7 +59,7 @@ public class paintPanel extends JPanel {
         if (g == null) {
             g = (Graphics2D) super.getGraphics();
         }
-        g.setColor(new Color(240,80,0));
+        g.setColor(new Color(240, 80, 0));
         for (int i = 0; i < xList.size(); i++) {
             Double xp = xList.get(i);
             Double yp = yList.get(i);
@@ -106,23 +109,98 @@ public class paintPanel extends JPanel {
 
         step = w / (bound * 2);
 
+        int ik = -1;
         for (int i = w / 2; i < w; i += step) {
-            g.drawLine(i, h / 2 + 5, i, h / 2 - 5);
-            Integer n = (i - w / 2) / step;
-            g.drawString(n.toString(), i + 2, h / 2 + 13);
-        }
-        for (int i = w / 2; i > 0; i -= step) {
-            g.drawLine(i, h / 2 + 5, i, h / 2 - 5);
-            Integer n = (i - w / 2) / step;
-            g.drawString(n.toString(), i + 2, h / 2 + 13);
-        }
+            if (bound == 30) {
+                if (i % 2 == 1) {
+                    continue;
+                }
+            }
+            if (bound == 50) {
+                ik++;
+                if (ik % 5 != 0) {
+                    continue;
+                }
+            }
+            if (bound == 100) {
+                ik++;
+                if (ik % 10 != 0) {
+                    continue;
+                }
+            }
 
+            g.drawLine(i, h / 2 + 5, i, h / 2 - 5);
+            Integer n = (i - w / 2) / step;
+            g.drawString(n.toString(), i + 2, h / 2 + 13);
+        }
+        ik = -1;
+        for (int i = w / 2; i > 0; i -= step) {
+            if (bound == 30) {
+                if (i % 2 == 1) {
+                    continue;
+                }
+            }
+            if (bound == 50) {
+                ik++;
+                if (ik % 5 != 0) {
+                    continue;
+                }
+            }
+            if (bound == 100) {
+                ik++;
+                if (ik % 10 != 0) {
+                    continue;
+                }
+            }
+
+            g.drawLine(i, h / 2 + 5, i, h / 2 - 5);
+            Integer n = (i - w / 2) / step;
+            g.drawString(n.toString(), i + 2, h / 2 + 13);
+        }
+        ik = -1;
         for (int i = h / 2; i < h; i += step) {
+            if (bound == 30) {
+                if (i % 2 == 1) {
+                    continue;
+                }
+            }
+            if (bound == 50) {
+                ik++;
+                if (ik % 5 != 0) {
+                    continue;
+                }
+            }
+            if (bound == 100) {
+                ik++;
+                if (ik % 10 != 0) {
+                    continue;
+                }
+            }
+
             g.drawLine(w / 2 + 5, i, w / 2 - 5, i);
             Integer n = -(i - h / 2) / step;
             g.drawString(n.toString(), w / 2 + 3, i + 13);
         }
+        ik = -1;
         for (int i = h / 2; i > 0; i -= step) {
+            if (bound == 30) {
+                if (i % 2 == 1) {
+                    continue;
+                }
+            }
+            if (bound == 50) {
+                ik++;
+                if (ik % 5 != 0) {
+                    continue;
+                }
+            }
+            if (bound == 100) {
+                ik++;
+                if (ik % 10 != 0) {
+                    continue;
+                }
+            }
+
             g.drawLine(w / 2 + 5, i, w / 2 - 5, i);
             Integer n = -(i - h / 2) / step;
             g.drawString(n.toString(), w / 2 + 3, i + 13);
@@ -131,16 +209,92 @@ public class paintPanel extends JPanel {
         g.setStroke(new BasicStroke(1.0f));
         g.setColor(Color.gray);
 
+        ik = -1;
         for (int i = w / 2; i < w; i += step) {
+            if (bound == 30) {
+                if (i % 2 == 1) {
+                    continue;
+                }
+            }
+            if (bound == 50) {
+                ik++;
+                if (ik % 5 != 0) {
+                    continue;
+                }
+            }
+            if (bound == 100) {
+                ik++;
+                if (ik % 10 != 0) {
+                    continue;
+                }
+            }
+
             g.drawLine(i, 0, i, h);
         }
+        ik = -1;
         for (int i = w / 2; i > 0; i -= step) {
+            if (bound == 30) {
+                if (i % 2 == 1) {
+                    continue;
+                }
+            }
+            if (bound == 50) {
+                ik++;
+                if (ik % 5 != 0) {
+                    continue;
+                }
+            }
+            if (bound == 100) {
+                ik++;
+                if (ik % 10 != 0) {
+                    continue;
+                }
+            }
+
             g.drawLine(i, 0, i, h);
         }
+        ik = -1;
         for (int i = h / 2; i < h; i += step) {
+            if (bound == 30) {
+                if (i % 2 == 1) {
+                    continue;
+                }
+            }
+            if (bound == 50) {
+                ik++;
+                if (ik % 5 != 0) {
+                    continue;
+                }
+            }
+            if (bound == 100) {
+                ik++;
+                if (ik % 10 != 0) {
+                    continue;
+                }
+            }
+
             g.drawLine(0, i, w, i);
         }
+        ik = -1;
         for (int i = h / 2; i > 0; i -= step) {
+            if (bound == 30) {
+                if (i % 2 == 1) {
+                    continue;
+                }
+            }
+            if (bound == 50) {
+                ik++;
+                if (ik % 5 != 0) {
+                    continue;
+                }
+            }
+            if (bound == 100) {
+                ik++;
+                if (ik % 10 != 0) {
+                    continue;
+                }
+            }
+
             g.drawLine(0, i, w, i);
         }
         g.setColor(Color.BLACK);
