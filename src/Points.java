@@ -50,18 +50,19 @@ public class Points {
         for (Double d : listXX) {
             summXX = summXX + d;
         }
-        //System.out.println(summX+"\n"+summY+"\n"+summXY+"\n"+summXX+"\n"+n);
+        System.out.println(summX+"\n"+summY+"\n"+summXY+"\n"+summXX+"\n"+n);
 
-        Double a = (n * summXY - summX * summY) / (n * summXX - summX * summX);
-        Double b = (summY - a * summX) / 5;
+        //Double a = (n * summXY - summX * summY) / (n * summXX - summX * summX);
+        //Double b = (summY - a * summX) / 5;
+
+        Double a = (summY*summX-n*summXY)/(summX*summX-n*summXX);
+        Double b = (summX*summXY-summXX*summY)/(summX*summX-n*summXX);
 
         Double res[] = new Double[2];
         res[0] = a;
         res[1] = b;
 
-
-
-        System.out.println("y = " + String.format("%.2f", res[0]) + ((b > 0) ? ("x + " + String.format("%.2f", res[1])) : ("x - " + String.format("%.2f", -res[1]))));
+        //System.out.println("y = " + String.format("%.2f", res[0]) + ((b > 0) ? ("x + " + String.format("%.2f", res[1])) : ("x - " + String.format("%.2f", -res[1]))));
 
         return res;
     }
